@@ -1,0 +1,81 @@
+.dashboard-container {
+    position: fixed;
+    top: 120px;
+    left: 0;
+    width: 250px; /* Adjust width as needed */
+    height: 100%;
+    background-color: #4365CF;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 10;
+    transition: left 0.5s ease-in-out;
+  }
+  
+  .first {
+    /*background-image: url("doctor3.jpg");*/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    position: relative;
+
+  }
+  /* Adjust the margin for the other elements to prevent overlap with the dashboard */
+  
+  .menu-icon-container {
+    margin-left: 270px; /* Adjust margin left to accommodate the dashboard */
+  }
+  
+  .unity-lifeline-container {
+    margin-left: 350px; /* Adjust margin left to accommodate the dashboard */
+  }
+  
+  .outlet-container {
+    margin-left: 250px; /* Adjust margin left to accommodate the dashboard */
+  }
+  
+  /* Media queries for responsiveness */
+  
+  @media screen and (max-width: 768px) {
+    .dashboard-container {
+      width: 200px; /* Adjust width for smaller screens */
+    }
+  
+    .menu-icon-container {
+      margin-left: 220px; /* Adjust margin left for smaller screens */
+    }
+  
+    .unity-lifeline-container {
+      margin-left: 300px; /* Adjust margin left for smaller screens */
+    }
+  
+    .outlet-container {
+      margin-left: 200px; /* Adjust margin left for smaller screens */
+    }
+  }
+  
+  @media screen and (max-width: 576px) {
+    .dashboard-container {
+      width: 150px; /* Adjust width for even smaller screens */
+    }
+  
+    .menu-icon-container {
+      margin-left: 170px; /* Adjust margin left for even smaller screens */
+    }
+  
+    .unity-lifeline-container {
+      margin-left: 250px; /* Adjust margin left for even smaller screens */
+    }
+  
+    .outlet-container {
+      margin-left: 150px; /* Adjust margin left for even smaller screens */
+    }
+  }
+
+  .zoomable:hover {
+    font-size: 32px; /* Adjust the zoom level as needed */
+  }
+  
+  

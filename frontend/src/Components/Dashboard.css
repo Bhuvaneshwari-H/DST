@@ -1,0 +1,76 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  border: 15px solid #4365CF;
+  overflow-x: hidden;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  z-index: 1;
+}
+
+.split-container {
+  display: flex;
+  align-items: flex-start; /* Align items to the top */
+  margin-top: -12px;
+}
+
+.content1,
+.content2 {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Align content horizontally at the center */
+}
+
+.content2 > div {
+  margin-left: auto; /* Add margin to the left side of the content */
+  margin-right: 20px; /* Add margin to the right side of the content */
+}
+
+
+.doctor-canvas-container {
+  width: 200px; /* Set the desired width */
+  height: 340px; /* Set the desired height */
+  margin-right: 20px; /* Add margin to the right side */
+}
+
+.disease-canvas-container {
+  width: 300px; /* Set the desired width */
+  height: 300px; /* Set the desired height */
+  margin-left: 200px; /* Add margin to the left side */
+}
+
+
+.canvas-container {
+  width: 300px;
+  height: 300px;
+}
+
+.top-header {
+  width: 100%;
+}
+
+.center-text {
+  text-align: center;
+}
+
