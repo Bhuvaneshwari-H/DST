@@ -9,6 +9,7 @@ import Patients from './Components/Patients';
 import Dashboard from './Components/Dashboard';
 import God from './Components/God';
 
+
 function App() {
   return (
     <div className="App">

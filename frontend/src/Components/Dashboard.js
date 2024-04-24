@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Chart } from 'chart.js/auto';
+import Chart from 'chart.js/auto';
 import './Dashboard.css';
-import Popup from './Popup'; // Import the Popup component
+import Popup from './Popup';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -21,6 +21,8 @@ export default class Dashboard extends Component {
     };
     this.chartRef = React.createRef();
     this.doctorChartRef = React.createRef();
+    this.chartInstance = null;
+    this.doctorChartInstance = null;
   }
 
   async componentDidMount() {
@@ -97,7 +99,7 @@ export default class Dashboard extends Component {
   renderChart() {
     const { diseaseCounts } = this.state;
     const totalPatients = Object.values(diseaseCounts).reduce((acc, count) => acc + count, 0);
-
+  
     const chartData = {
       labels: Object.keys(diseaseCounts),
       datasets: [{
@@ -107,14 +109,14 @@ export default class Dashboard extends Component {
         total: totalPatients,
       }]
     };
-
+  
     if (this.chartInstance) {
       this.chartInstance.destroy();
     }
-
+  
     if (this.chartRef.current) {
       const ctx = this.chartRef.current.getContext('2d');
-
+  
       this.chartInstance = new Chart(ctx, {
         type: 'pie',
         data: chartData,
@@ -138,21 +140,27 @@ export default class Dashboard extends Component {
                   return `${label}: ${value} (${percentage}%)`;
                 }
               }
-            }
+            },
           },
-          elements: { arc: { borderWidth: 1 } },
-          legend: { labels: { font: { weight: 'bold' } } }
+          elements: { 
+            arc: { 
+              borderWidth: 5,
+              hoverBorderWidth: 20,
+              borderColor: 'black',
+            } 
+          },
+          legend: { labels: { font: { weight: 'bold' } } },
         },
       });
     } else {
       console.error('Chart reference not found!');
     }
   }
-
+  
   renderDoctorChart() {
     const { departmentCounts } = this.state;
     const totalDoctors = Object.values(departmentCounts).reduce((acc, val) => acc + val, 0);
-
+  
     const chartData = {
       labels: Object.keys(departmentCounts),
       datasets: [{
@@ -167,14 +175,14 @@ export default class Dashboard extends Component {
         borderWidth: 1,
       }]
     };
-
+  
     if (this.doctorChartRef.current) {
       const ctx = this.doctorChartRef.current.getContext('2d');
-
+  
       if (this.doctorChartInstance) {
         this.doctorChartInstance.destroy();
       }
-
+  
       this.doctorChartInstance = new Chart(ctx, {
         type: 'bar',
         data: chartData,
@@ -206,13 +214,32 @@ export default class Dashboard extends Component {
             },
             title: { display: true, text: 'Number of Doctors by Department', font: { size: 20, weight: 'bolder' } },
           },
+          onHover: (event, chartElement) => {
+            if (event.target && event.target.style) {
+              event.target.style.cursor = chartElement ? 'pointer' : 'default';
+            }
+          
+            if (chartElement && chartElement._model && chartElement._model.borderWidth !== undefined) {
+              chartElement._model.borderWidth = 2;
+              chartElement._model.borderColor = 'black';
+            } else {
+              chartData.datasets[0].data.forEach((data, index) => {
+                const meta = this.doctorChartInstance.getDatasetMeta(0).data[index];
+                if (meta && meta._model && meta._model.borderWidth !== undefined) {
+                  meta._model.borderWidth = 1;
+                  meta._model.borderColor = 'rgba(255, 99, 132, 1)';
+                }
+              });
+            }
+            this.doctorChartInstance.update();
+          }
         },
       });
     } else {
       console.error('Doctor chart reference not found!');
     }
   }
-
+  
   handleDiseaseChartClick = async (event) => {
     const activeElement = this.chartInstance.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false)[0];
     if (activeElement) {
@@ -220,17 +247,14 @@ export default class Dashboard extends Component {
       const dataset = this.chartInstance.data.datasets[0];
       const bars = this.chartInstance.getDatasetMeta(0).data;
   
-      // Reset border width and color for all bars
       bars.forEach((bar, i) => {
         bar.borderWidth = 0;
         bar.borderColor = 'transparent';
       });
   
-      // Highlight the selected bar by increasing its border width and setting a dark color
       bars[index].borderWidth = 4;
       bars[index].borderColor = 'black';
   
-      // Redraw the chart to reflect the changes
       this.chartInstance.update();
   
       const diseaseName = this.chartInstance.data.labels[index];
@@ -245,9 +269,8 @@ export default class Dashboard extends Component {
     }
   }
   
-
   render() {
-    const { numberOfPatients, selectedDoctors, selectedPatients, popupData, isPopupOpen, popupPosition, popupColor } = this.state;
+    const { isPopupOpen, popupData, popupPosition, popupColor } = this.state;
 
     return (
       <div className="page-container" style={{ position: 'relative', top: '-70px' }}>

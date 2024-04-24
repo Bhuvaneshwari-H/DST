@@ -9,6 +9,7 @@
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^6.1.2",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "grunt": "1.0.4",
     "nodemailer": "^6.9.13",
     "sails": "^1.5.9",
@@ -19,10 +20,13 @@
     "sails-mongo": "^2.1.0"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "eslint": "5.16.0"
   },
   "scripts": {
-    "start": "NODE_ENV=production node app.js",
+    "start-frontend": "react-scripts start",
+    "start-backend": "node start-backend.js",
+    "start": "npm run start-frontend && npm run start-backend",
     "test": "npm run lint && npm run custom-tests && echo 'Done.'",
     "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
