@@ -46,7 +46,7 @@ const Signup = () => {
     const onSubmit = async (values, { resetForm, setSubmitting, setFieldError }) => {
         try {
             // Make a POST request to your Sails backend
-            const response = await axios.post('http://localhost:1337/User', values);
+            const response = await axios.post('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/User', values);
     
             // Reset the form and navigate to the login page if successful
             resetForm();

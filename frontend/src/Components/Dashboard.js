@@ -28,10 +28,10 @@ export default class Dashboard extends Component {
   async componentDidMount() {
     try {
       const [doc, patients, departments, diseases] = await Promise.all([
-        axios.get('http://localhost:1337/doctors/count'),
-        axios.get('http://localhost:1337/patients/count'),
-        axios.get('http://localhost:1337/doctors/countByDepartment'),
-        axios.get('http://localhost:1337/patients/countByDisease'),
+        axios.get('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/doctors/count'),
+        axios.get('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/patients/count'),
+        axios.get('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/doctors/countByDepartment'),
+        axios.get('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/patients/countByDisease'),
       ]);
 
       const departmentCounts = departments.data;
@@ -76,7 +76,7 @@ export default class Dashboard extends Component {
 
   fetchDoctorsByDepartment = async (department) => {
     try {
-      const response = await axios.get(`http://localhost:1337/doctors/getDoctorsByDepartment?department=${department}`);
+      const response = await axios.get(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/doctors/getDoctorsByDepartment?department=${department}`);
       const doctors = response.data.doctors;
       return doctors;
     } catch (error) {
@@ -87,7 +87,7 @@ export default class Dashboard extends Component {
 
   fetchPatientsByDisease = async (disease) => {
     try {
-      const response = await axios.get(`http://localhost:1337/patients/getPatientsByDisease?disease=${disease}`);
+      const response = await axios.get(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/patients/getPatientsByDisease?disease=${disease}`);
       const patients = response.data.patients;
       return patients;
     } catch (error) {

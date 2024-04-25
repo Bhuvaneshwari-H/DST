@@ -42,7 +42,7 @@ function Patients() {
   const fetchData = async () => {
     try {
       // Make GET request to your backend API endpoint to fetch patients data
-      const response = await axios.get('http://localhost:1337/patients');
+      const response = await axios.get('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/patients');
       setpatients(response.data); // Set the fetched data to the state
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -77,7 +77,7 @@ function Patients() {
         await fetchData();
       } else {
         // Call the endpoint with the entered doctor's name
-        const response = await axios.get(`http://localhost:1337/patients/getByDoctor?doctorName=${doctorName}`);
+        const response = await axios.get(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/patients/getByDoctor?doctorName=${doctorName}`);
         setpatients(response.data);
       }
       // Reset the doctorName state after submitting
@@ -116,7 +116,7 @@ function Patients() {
         queryParams = `filterType=${filterType}&filterValue=${filterValue}`;
       }
 
-      const response = await axios.get(`http://localhost:1337/patients/${endpoint}?${queryParams}`);
+      const response = await axios.get(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/patients/${endpoint}?${queryParams}`);
       setpatients(response.data);
      
     } catch (error) {
@@ -135,7 +135,7 @@ function Patients() {
       const updatedpatient = { ...editingpatient, ...data };
   
       // Make PUT request to backend API to update the patient
-      await axios.put(`http://localhost:1337/update1/${editingpatient.id}`, updatedpatient);
+      await axios.put(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/update1/${editingpatient.id}`, updatedpatient);
   
       // Update the patient object in the state with the new data
       setpatients(prevpatients =>
@@ -155,7 +155,7 @@ function Patients() {
   const handleAddSubmit = async (data) => {
     try {
       // Make POST request to backend API to add a new patient
-      const response = await axios.post('http://localhost:1337/add', data);
+      const response = await axios.post('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/add', data);
       setpatients([...patients, response.data]);
       
       setIsPopoverOpen(true);
@@ -172,7 +172,7 @@ function Patients() {
   const handleSeverePatientsClick = async () => {
     try {
       // Make GET request to your backend API endpoint to fetch severe patients
-      const response = await axios.get('http://localhost:1337/patients/getSeverePatients');
+      const response = await axios.get('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/patients/getSeverePatients');
       setShowSeverePopup(true); // Show the severe condition popup with severe patients data
       setSeverePatients(response.data); // Set severe patients data
     } catch (error) {
@@ -191,7 +191,7 @@ function Patients() {
   const handleEditClick = async (id) => {
     try {
       // Make a GET request to fetch the details of the patient with the given ID
-      const response = await axios.get(`http://localhost:1337/patients/${id}`);
+      const response = await axios.get(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/patients/${id}`);
       const patientData = response.data;
       
       setEditingpatient(patientData);
@@ -208,7 +208,7 @@ function Patients() {
   const handleDeleteClick = async (id) => {
     try {
       // Make DELETE request to backend API to delete the patient
-      await axios.delete(`http://localhost:1337/deletepatient/${id}`);
+      await axios.delete(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/deletepatient/${id}`);
       // Update the patients state by filtering out the deleted patient
       setpatients(patients.filter((patient) => patient.id !== id));
     } catch (error) {

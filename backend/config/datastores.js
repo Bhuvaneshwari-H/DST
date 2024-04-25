@@ -51,8 +51,12 @@ module.exports.datastores = {
     // adapter: 'sails-mysql',
     // url: 'mysql://user:password@host:port/database',
 
-    adapter:"sails-mongo",
-    url:"mongodb://127.0.0.1:27017/User"
+    
+      adapter: 'sails-mongo',
+      url: 'mongodb://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/newdatabase'
+    
+    // url:"mongodb://127.0.0.1:27017/User"
+   
   },
  
 };

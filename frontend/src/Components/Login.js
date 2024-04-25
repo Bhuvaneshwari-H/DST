@@ -25,7 +25,7 @@ const Login = () => {
     const onSubmit = async (values, props) => {
         try {
             // Make a POST request to your backend for authentication
-            const response = await axios.post('http://localhost:1337/login', {
+            const response = await axios.post('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/login', {
                 email: values.email,
                 password: values.password
             });

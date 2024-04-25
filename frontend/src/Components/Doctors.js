@@ -32,7 +32,7 @@ function Doctors() {
   const fetchData = async () => {
     try {
       // Make GET request to your backend API endpoint to fetch doctors data
-      const response = await axios.get('http://localhost:1337/doctors');
+      const response = await axios.get('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/doctors');
       setDoctors(response.data); // Set the fetched data to the state
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -80,7 +80,7 @@ function Doctors() {
       const updatedDoctor = { ...editingDoctor, ...data };
 
       // Make PUT request to backend API to update the doctor
-      await axios.put(`http://localhost:1337/update/${editingDoctor.id}`, updatedDoctor);
+      await axios.put(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/update/${editingDoctor.id}`, updatedDoctor);
 
       // Update the doctor object in the state with the new data
       setDoctors(prevDoctors =>
@@ -100,7 +100,7 @@ function Doctors() {
   const handleProfileClick = async (id) => {
     try {
       
-      const response = await axios.get(`http://localhost:1337/doctors/${id}`);
+      const response = await axios.get(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/doctors/${id}`);
       const doctorData = response.data;
       handleDialogOpen(doctorData);
     } catch (error) {
@@ -112,7 +112,7 @@ function Doctors() {
     console.log('Adding new doctor:', data);
   
     try {
-      const response = await axios.post('http://localhost:1337/plus', data);
+      const response = await axios.post('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/plus', data);
       console.log('New doctor added:', response.data);
   
       // Update the doctors state by adding the newly created doctor
@@ -158,7 +158,7 @@ function Doctors() {
   const handleEditClick = async (id) => {
     try {
       // Make a GET request to fetch the details of the doctor with the given ID
-      const response = await axios.get(`http://localhost:1337/doctors/${id}`);
+      const response = await axios.get(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/doctors/${id}`);
       const doctorData = response.data;
 
       setEditingDoctor(doctorData);
@@ -177,7 +177,7 @@ function Doctors() {
     try {
       
       // Make DELETE request to backend API to delete the doctor
-      await axios.delete(`http://localhost:1337/deleteDoctor/${id}`);
+      await axios.delete(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/deleteDoctor/${id}`);
       // Update the doctors state by filtering out the deleted doctor
       setDoctors(doctors.filter((doctor) => doctor.id !== id));
     } catch (error) {
@@ -188,7 +188,7 @@ function Doctors() {
   const fetchExperiencedDoctors = async () => {
     try {
       // Make a GET request to your backend API endpoint to fetch experienced doctors
-      const response = await axios.get('http://localhost:1337/doctors/fetchExperiencedDoctors');
+      const response = await axios.get('http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/doctors/fetchExperiencedDoctors');
       setDoctors(response.data); // Update the doctors state with the fetched experienced doctors
     } catch (error) {
       console.error('Error fetching experienced doctors:', error);
@@ -197,7 +197,7 @@ function Doctors() {
   
   const handleProfileHover = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:1337/doctors/fetchDoctorAvailability/${id}`);
+      const response = await axios.get(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/doctors/fetchDoctorAvailability/${id}`);
       const doctorData = response.data;
       // Show availability status in tooltip
       return `${doctorData.name} is ${doctorData.available ? 'available' : 'not available'}`;
@@ -209,7 +209,7 @@ function Doctors() {
 
   const fetchDoctorAvailability = async (doctorId) => {
     try {
-      const response = await axios.get(`http://localhost:1337/doctors/fetchDoctorAvailability/${doctorId}`);
+      const response = await axios.get(`http://ec2-13-60-54-245.eu-north-1.compute.amazonaws.com:27017/doctors/fetchDoctorAvailability/${doctorId}`);
       const doctorData = response.data;
       console.log(doctorData);
       // Check if the doctor is available based on the 'doctoravailable' attribute

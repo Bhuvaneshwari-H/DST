@@ -24,9 +24,31 @@
 // Ensure we're in the project directory, so cwd-relative paths work as expected
 // no matter where we actually lift from.
 // > Note: This is not required in order to lift, but it is a convenient default.
+const mongoose = require('mongoose');
+
+// Set up MongoDB URI and credentials
+const mongoURI = 'mongodb://localhost:27017/wizpeerdb'; // MongoDB connection URI
+const username = 'wizpeerdbuser'; // MongoDB username
+const password = 'wizpeerdbu53r'; // MongoDB password
+
+// Connect to MongoDB
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  auth: {
+    user: username,
+    password: password
+  }
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch((err) => {
+  console.error('Error connecting to MongoDB:', err);
+});
+
+// Ensure we're in the project directory, so cwd-relative paths work as expected
+// no matter where we actually lift from.
+// > Note: This is not required in order to lift, but it is a convenient default.
 process.chdir(__dirname);
-
-
 
 // Attempt to import `sails` dependency, as well as `rc` (for loading `.sailsrc` files).
 var sails;
@@ -48,7 +70,6 @@ try {
   console.error('(It even uses your app directory\'s local Sails install, if possible.)');
   return;
 }//-•
-
 
 // Start server
 sails.lift(rc('sails'));
